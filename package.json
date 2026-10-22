@@ -1,0 +1,19 @@
+{
+  "name": "growl-bot",
+  "version": "1.0.0",
+  "description": "GrowL - Discord farming bot game (welcome panel + private farming thread)",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "check": "node --check index.js && node --check src/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.15.0",
+    "dotenv": "^16.4.5"
+  }
+}

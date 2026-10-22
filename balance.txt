@@ -1,0 +1,44 @@
+10: p=0 b=1 s=0 |   ActionRowBuilder,
+20: p=0 b=0 s=0 | } = require('discord.js');
+30: p=0 b=0 s=0 | const INVENTORY_OPEN_CUSTOM_ID = 'inventory_open';
+40: p=0 b=0 s=0 | const SHOP_BACK_CUSTOM_ID = 'shop_back';
+50: p=0 b=0 s=0 | const SHOP_GACHA_PRICE = 5;
+60: p=0 b=0 s=0 | const GROWL_GREEN = 0x4caf50;
+70: p=0 b=1 s=0 | function accountPath(userId) {
+80: p=0 b=2 s=0 |     level: 1,
+90: p=0 b=2 s=0 |     locks: 0,
+100: p=0 b=2 s=0 |   try {
+110: p=0 b=1 s=0 |   fs.writeFileSync(accountPath(account.userId), JSON.stringify(account, null, 2));
+120: p=0 b=2 s=0 |     return await fn();
+130: p=0 b=0 s=0 | 
+140: p=0 b=0 s=0 | 
+150: p=0 b=2 s=0 | /* ---------- EMBEDS & COMPONENTS ---------- */
+160: p=1 b=4 s=0 |       const it = getItem(id);
+170: p=0 b=3 s=0 |   }
+180: p=0 b=3 s=1 |     '- none',
+190: p=0 b=3 s=0 | function buildMainComponents() {
+191: p=0 b=3 s=1 |   return [
+192: p=1 b=3 s=1 |     new ActionRowBuilder().addComponents(
+193: p=1 b=3 s=1 |       new ButtonBuilder().setCustomId(FARM_BREAK_CUSTOM_ID).setLabel('Farm').setStyle(ButtonStyle.Primary).set
+194: p=1 b=4 s=1 | function buildInventoryEmbed(account, selectedId) {
+195: p=1 b=4 s=1 |   const inv = account.inventory ?? {};
+196: p=1 b=4 s=1 |   const lines = ['**Inventory**', ''];
+197: p=1 b=4 s=1 |   const ids = Object.keys(inv).filter((id) => (inv[id] ?? 0) > 0);
+198: p=1 b=4 s=1 |   if (!ids.length) lines.push('_(kosong)_');
+199: p=1 b=5 s=1 |   for (const id of ids) {
+200: p=1 b=5 s=1 |     const it = getItem(id);
+201: p=1 b=5 s=1 |     if (!it) continue;
+202: p=1 b=5 s=1 |     const mark = id === account.equippedItemId ? ' (dipakai)' : '';
+203: p=1 b=5 s=1 |     lines.push(`${it.emote ?? ''} ${it.name} x${inv[id]}${mark} — ${it.type}`);
+204: p=1 b=4 s=1 |   }
+205: p=1 b=5 s=1 |   if (selectedId) {
+206: p=1 b=5 s=1 |     const it = getItem(selectedId);
+207: p=1 b=5 s=1 |     if (it) lines.push('', `Dipilih: ${it.emote ?? ''} **${it.name}**`);
+208: p=1 b=4 s=1 |   }
+209: p=1 b=4 s=1 |   return new EmbedBuilder().setTitle('Inventori').setColor(GROWL_GREEN).setDescription(lines.join('\n'));
+210: p=1 b=3 s=1 | }
+211: p=1 b=3 s=1 | 
+212: p=1 b=4 s=1 | function buildInventoryComponents(account, selectedId) {
+213: p=1 b=4 s=1 |   const rows = [];
+214: p=1 b=4 s=1 |   const inv = account.inventory ?? {};
+215: p=2 b=5 s=1 |   const usable = Object.keys(inv).filter((id) => {

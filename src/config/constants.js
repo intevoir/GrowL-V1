@@ -1,0 +1,80 @@
+'use strict';
+
+/** Channel & interaction custom IDs */
+const PANEL_CHANNEL_ID = '1548772334167523338';
+const START_FARMING_CUSTOM_ID = 'start_farming';
+const FARM_BREAK_CUSTOM_ID = 'farm_break';
+const INVENTORY_OPEN_CUSTOM_ID = 'inventory_open';
+const INVENTORY_BACK_CUSTOM_ID = 'inventory_back';
+const INVENTORY_SELECT_CUSTOM_ID = 'inventory_select';
+const INVENTORY_EQUIP_PREFIX = 'inventory_equip:';
+const INVENTORY_WEAR_PREFIX = 'inventory_wear:';
+const FARMABLE_OPEN_CUSTOM_ID = 'farmable_open';
+const FARMABLE_SELECT_CUSTOM_ID = 'farmable_select';
+const FARMABLE_BACK_CUSTOM_ID = 'farmable_back';
+const SHOP_OPEN_CUSTOM_ID = 'shop_open';
+const SHOP_SELECT_CUSTOM_ID = 'shop_select';
+const SHOP_EXIT_CUSTOM_ID = 'shop_exit';
+const SHOP_BACK_CUSTOM_ID = 'shop_back';
+const SHOP_BUY_FARMABLE_SELECT = 'shop_buy_farmable';
+const SHOP_BUY_GACHA_SELECT = 'shop_buy_gacha';
+const GACHA_USE_PREFIX = 'gacha_use:';
+const GACHA_QTY_MODAL_PREFIX = 'gacha_qty_modal:';
+const SHOP_BUY_LOCK_MODAL_PREFIX = 'shop_buy_lock_modal:';
+const SHOP_BUY_FARMABLE_MODAL_PREFIX = 'shop_buy_farmable_modal:';
+const SHOP_BUY_GACHA_MODAL = 'shop_buy_gacha_modal';
+
+/** Economy */
+const LOCK_PRICES = { wl: 2000, dl: 200000, bgl: 20000000 };
+const LOCK_WL_VALUE = { wl: 1, dl: 100, bgl: 10000 };
+const SHOP_FARMABLE_PACKS = { pog: { qty: 10, wl: 1 } };
+const SHOP_GACHA_PRICE = 5;
+
+/** Gacha */
+const GACHA_CHANCE = 100000;
+const GACHA_NOTIFY_CHANNEL = '1548925460698898475';
+const GACHA_NOTIFY_ROLE = '1529232929518129272';
+
+/** Discord */
+const THREAD_AUTO_ARCHIVE_DURATION = 60;
+const THREAD_IDLE_CLOSE_MS = 5 * 60 * 1000;
+const GROWL_GREEN = 0x4caf50;
+const FIST_EMOJI = { id: '1548772885265518662', name: 'fist' };
+const GEMS_EMOJI = '<:gems:1548789349678710844>';
+
+module.exports = {
+  PANEL_CHANNEL_ID,
+  START_FARMING_CUSTOM_ID,
+  FARM_BREAK_CUSTOM_ID,
+  INVENTORY_OPEN_CUSTOM_ID,
+  INVENTORY_BACK_CUSTOM_ID,
+  INVENTORY_SELECT_CUSTOM_ID,
+  INVENTORY_EQUIP_PREFIX,
+  INVENTORY_WEAR_PREFIX,
+  FARMABLE_OPEN_CUSTOM_ID,
+  FARMABLE_SELECT_CUSTOM_ID,
+  FARMABLE_BACK_CUSTOM_ID,
+  SHOP_OPEN_CUSTOM_ID,
+  SHOP_SELECT_CUSTOM_ID,
+  SHOP_EXIT_CUSTOM_ID,
+  SHOP_BACK_CUSTOM_ID,
+  SHOP_BUY_FARMABLE_SELECT,
+  SHOP_BUY_GACHA_SELECT,
+  GACHA_USE_PREFIX,
+  GACHA_QTY_MODAL_PREFIX,
+  SHOP_BUY_LOCK_MODAL_PREFIX,
+  SHOP_BUY_FARMABLE_MODAL_PREFIX,
+  SHOP_BUY_GACHA_MODAL,
+  LOCK_PRICES,
+  LOCK_WL_VALUE,
+  SHOP_FARMABLE_PACKS,
+  SHOP_GACHA_PRICE,
+  GACHA_CHANCE,
+  GACHA_NOTIFY_CHANNEL,
+  GACHA_NOTIFY_ROLE,
+  THREAD_AUTO_ARCHIVE_DURATION,
+  THREAD_IDLE_CLOSE_MS,
+  GROWL_GREEN,
+  FIST_EMOJI,
+  GEMS_EMOJI,
+};
