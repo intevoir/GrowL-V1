@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * farmable.js - Definisi item farmable (block) GrowL.
+ * farmable.js - Definisi item farmable (block) Growvia.
  *
  * fields:
  * - rarity : basis EXP yang didapat saat break (perkalian dengan item.exp)

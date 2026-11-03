@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Definisi data item GrowL.
+ * Definisi data item Growvia.
  *
  * stats (semua PERKALIAN kecuali block/range):
  * - gems   : perkalian gems per break
@@ -17,7 +17,7 @@ const items = [
     name: 'Fist',
     emote: '<:fist:1548772885265518662>',
     type: 'hand',
-    description: 'Kepalan tangan kosong. Senjata awal seorang petani GrowL.',
+    description: 'Kepalan tangan kosong. Senjata awal seorang petani Growvia.',
     stats: { gems: 1, exp: 1, block: 0, range: 1 },
   },
   {
@@ -33,7 +33,7 @@ const items = [
     name: 'World Lock',
     emote: '<:wl:1548815818928816238>',
     type: 'lock',
-    description: 'Mata uang dasar GrowL (2.000 gems).',
+    description: 'Mata uang dasar Growvia (2.000 gems).',
   },
   {
     id: 'dl',

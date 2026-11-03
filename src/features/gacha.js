@@ -131,7 +131,7 @@ async function runGachaRoll(interaction, user, account, itemId, qty) {
           });
         }
       } catch (e) {
-        console.warn('[GROWL] Notifikasi gagal:', e.message);
+        console.warn('[GROWVIA] Notifikasi gagal:', e.message);
       }
     }
   });

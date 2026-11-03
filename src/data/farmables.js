@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Definisi farmable (block) GrowL.
+ * Definisi farmable (block) Growvia.
  * - rarity : basis EXP & roll gems maks (1..rarity)
  * - unlimited : stok tidak terbatas
  */

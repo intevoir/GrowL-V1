@@ -1,4 +1,4 @@
-# GrowL 🌱 — Discord Bot Game
+# Growvia 🌱 — Discord Bot Game
 
 Farming idler game bot untuk Discord (discord.js v14).
 
@@ -26,7 +26,7 @@ npm start
    - **Panel lama dihapus otomatis** (anti double panel — track di `panel.json` + scan pesan)
    - **Semua thread farming lama dihapus** (progress akun TETAP disimpan)
    - Bot mengirim **panel** baru ke channel `1548772334167523338`:
-     - Embed **"Welcome To GrowL"** + tombol **[👊 Start Farming]** (`<:fist:1548772885265518662>`)
+     - Embed **"Welcome To Growvia"** + tombol **[👊 Start Farming]** (`<:fist:1548772885265518662>`)
 2. Klik tombol → reply `Your farm is ready: <#thread>` + bot membuat **private thread** `farm-<username>` (hanya user tsb yang bisa akses)
 3. Di dalam thread → **1 embed status** (+ tombol **[👊 Farm]**):
 ```
@@ -85,7 +85,7 @@ expToNext(level) = (level + 1)³ × 10
 
 ## Struktur
 ```
-GrowL/
+Growvia/
 ├── index.js                 <- entry point
 ├── src/
 │   ├── index.js             <- client login + event wiring

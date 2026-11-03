@@ -1,7 +1,7 @@
 {
-  "name": "growl-bot",
+  "name": "growvia-bot",
   "version": "1.0.0",
-  "description": "GrowL - Discord farming bot game (welcome panel + private farming thread)",
+  "description": "Growvia - Discord farming bot game (welcome panel + private farming thread)",
   "private": true,
   "main": "index.js",
   "scripts": {

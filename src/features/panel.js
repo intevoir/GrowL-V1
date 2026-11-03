@@ -51,7 +51,7 @@ async function cleanupOldPanel(channel) {
 async function ensurePanel() {
   const channel = await client.channels.fetch(PANEL_CHANNEL_ID).catch(() => null);
   if (!channel || !channel.isTextBased()) {
-    console.warn('[GROWL] Panel channel tidak ditemukan.');
+    console.warn('[GROWVIA] Panel channel tidak ditemukan.');
     return;
   }
   await cleanupOldPanel(channel);
@@ -69,7 +69,7 @@ async function ensurePanel() {
     PANEL_PATH,
     JSON.stringify({ channelId: PANEL_CHANNEL_ID, messageId: sent.id }, null, 2),
   );
-  console.log('[GROWL] Panel welcome terkirim.');
+  console.log('[GROWVIA] Panel welcome terkirim.');
 }
 
 module.exports = { ensurePanel, cleanupOldPanel };

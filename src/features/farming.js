@@ -35,7 +35,7 @@ async function refreshStatus(interactionOrChannel, account) {
     account.statusMsgId = sent.id;
     saveAccount(account);
   } catch (e) {
-    console.warn('[GROWL] refreshStatus gagal:', e.message);
+    console.warn('[GROWVIA] refreshStatus gagal:', e.message);
   }
 }
 

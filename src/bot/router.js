@@ -84,7 +84,7 @@ async function routeInteraction(interaction) {
       }
     }
   } catch (e) {
-    console.warn('[GROWL] Interaction error:', e.message);
+    console.warn('[GROWVIA] Interaction error:', e.message);
     try {
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({ content: '❌ Terjadi error.', ephemeral: true });

@@ -2,7 +2,7 @@
 
 const { EmbedBuilder } = require('discord.js');
 const {
-  GROWL_GREEN,
+  GROWVIA_GREEN,
   GEMS_EMOJI,
   LOCK_PRICES,
   SHOP_GACHA_PRICE,
@@ -38,8 +38,8 @@ function buildStatusEmbed(account) {
   }
 
   return new EmbedBuilder()
-    .setTitle('GrowL Farm')
-    .setColor(GROWL_GREEN)
+    .setTitle('Growvia Farm')
+    .setColor(GROWVIA_GREEN)
     .setDescription(lines.join('\n'));
 }
 
@@ -63,7 +63,7 @@ function buildInventoryEmbed(account, selectedId) {
 
   return new EmbedBuilder()
     .setTitle('Inventori')
-    .setColor(GROWL_GREEN)
+    .setColor(GROWVIA_GREEN)
     .setDescription(lines.join('\n'));
 }
 
@@ -84,7 +84,7 @@ function buildFarmableEmbed(account) {
 
   return new EmbedBuilder()
     .setTitle('Farmable')
-    .setColor(GROWL_GREEN)
+    .setColor(GROWVIA_GREEN)
     .setDescription(lines.join('\n'));
 }
 
@@ -94,7 +94,7 @@ function buildShopEmbed(account, mode, notice) {
   const bgl = getItem('bgl');
   const gbc = getItem('gbc');
   const lines = [
-    '**Shop GrowL**',
+    '**Shop Growvia**',
     `Gems: ${formatNumber(account.gems)} ${GEMS_EMOJI}`,
     `Locks (WL value): ${formatNumber(countLocksWL(account))}`,
     '',
@@ -111,7 +111,7 @@ function buildShopEmbed(account, mode, notice) {
 
   return new EmbedBuilder()
     .setTitle('Shop')
-    .setColor(GROWL_GREEN)
+    .setColor(GROWVIA_GREEN)
     .setDescription(lines.join('\n'));
 }
 
@@ -135,14 +135,14 @@ function buildGachaResultEmbed(account, itemId, qty, wins, empties) {
 
   return new EmbedBuilder()
     .setTitle(wins > 0 ? 'GACHA — MENANG!' : 'GACHA — Zonk')
-    .setColor(wins > 0 ? 0xffd700 : GROWL_GREEN)
+    .setColor(wins > 0 ? 0xffd700 : GROWVIA_GREEN)
     .setDescription(lines.join('\n'));
 }
 
 function buildWelcomeEmbed() {
   return new EmbedBuilder()
-    .setTitle('Welcome To GrowL')
-    .setColor(GROWL_GREEN)
+    .setTitle('Welcome To Growvia')
+    .setColor(GROWVIA_GREEN)
     .setDescription(
       'Game farming Discord!\nKlik tombol di bawah untuk mulai farming di thread pribadimu.',
     );

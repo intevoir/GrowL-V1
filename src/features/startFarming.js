@@ -71,11 +71,11 @@ async function handleStartFarming(interaction) {
         name: `farm-${user.username}`.slice(0, 100),
         type: ChannelType.PrivateThread,
         autoArchiveDuration: THREAD_AUTO_ARCHIVE_DURATION,
-        reason: 'GrowL farm',
+        reason: 'Growvia farm',
       });
       await thread.members.add(user.id).catch(() => {});
     } catch (e) {
-      console.warn('[GROWL] Gagal buat thread:', e.message);
+      console.warn('[GROWVIA] Gagal buat thread:', e.message);
       await interaction
         .editReply({ content: '❌ Gagal buat thread. Pastikan channel mengizinkan private thread.' })
         .catch(() => {});
