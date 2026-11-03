@@ -81,7 +81,11 @@ async function withUserLock(userId, fn) {
 }
 
 function formatNumber(n) {
-  return Number(n ?? 0).toLocaleString('en-US');
+  return round2(Number(n ?? 0)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function round2(n) {
+  return Math.round(Number(n) * 100) / 100;
 }
 
 function countLocksWL(account) {

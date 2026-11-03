@@ -2,6 +2,7 @@
 
 const { getFarmable } = require('../data/farmables');
 const { getItem } = require('../data/items');
+const { getGemMultiplier, round2, addGemsHeld } = require('./halving');
 
 /**
  * EXP ke level berikutnya (Growtopia-style): (level + 1)^3 × 10
@@ -10,10 +11,11 @@ function expToNext(level) {
   return (level + 1) ** 3 * 10;
 }
 
-/** Roll gems 1..rarity (uniform per hit). */
-function rollGems(rarity) {
-  const max = Math.max(1, rarity);
-  return 1 + Math.floor(Math.random() * max);
+/** Roll gems acak dalam rentang [min, max] per hit. */
+function rollGems(min, max) {
+  const lo = Math.max(0, Number(min ?? 0));
+  const hi = Math.max(lo, Number(max ?? lo));
+  return lo + Math.floor(Math.random() * (hi - lo + 1));
 }
 
 /**
@@ -47,20 +49,28 @@ function applyBreak(account) {
   const clothesBonus = account.clothesId === 'gang' ? 1.1 : 1;
   const hits = unlimited ? range : Math.min(range, stock);
 
+  const halving = getGemMultiplier();
+
   let gems = 0;
   let exp = 0;
   let blocksBack = 0;
 
   for (let hit = 0; hit < hits; hit++) {
-    gems += Math.floor(rollGems(farmable.rarity) * gemsMult * clothesBonus);
+    const hitGems = round2(
+      rollGems(farmable.gemMin, farmable.gemMax) * gemsMult * halving * clothesBonus,
+    );
+    gems += hitGems;
     exp += Math.floor(farmable.rarity * expMult * clothesBonus);
     if (Math.random() * 100 < blockChance) blocksBack += 1;
   }
 
+  gems = round2(gems);
+  addGemsHeld(gems);
+
   if (!unlimited) {
     account.farmables[farmable.id] = stock - hits + blocksBack;
   }
-  account.gems = (account.gems ?? 0) + gems;
+  account.gems = round2((account.gems ?? 0) + gems);
   account.breakCount = (account.breakCount ?? 0) + hits;
   account.exp = (account.exp ?? 0) + exp;
 
