@@ -24,6 +24,8 @@ const INTERVAL_GROWTH = 2;       // ambang berikutnya x2 setiap halving
 const FLOOR_MULTIPLIER = 0.01;   // minimal 1% hadiah, tak pernah nol
 
 let state = { totalGemsHeld: 0 };
+let dirty = false;
+let writeTimer = null;
 
 function ensureStateDir() {
   if (!fs.existsSync(STATE_DIR)) fs.mkdirSync(STATE_DIR, { recursive: true });
@@ -43,6 +45,22 @@ function saveState() {
   ensureStateDir();
   fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2));
 }
+
+function scheduleSave() {
+  if (writeTimer) return;
+  dirty = true;
+  writeTimer = setTimeout(flush, 5000);
+  if (writeTimer.unref) writeTimer.unref();
+}
+
+function flush() {
+  writeTimer = null;
+  if (!dirty) return;
+  dirty = false;
+  saveState();
+}
+
+process.on('exit', flush);
 
 function round2(n) {
   return Math.round(Number(n) * 100) / 100;
@@ -84,7 +102,7 @@ function getNextHalvingAt() {
 /** Catat gem baru yang ditambang ke total held. */
 function addGemsHeld(amount) {
   state.totalGemsHeld = round2(state.totalGemsHeld + amount);
-  saveState();
+  scheduleSave();
 }
 
 function getState() {

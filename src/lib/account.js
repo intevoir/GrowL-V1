@@ -9,13 +9,54 @@ const ACCOUNT_DIR = path.join(__dirname, '..', '..', 'account');
 const PANEL_PATH = path.join(__dirname, '..', '..', 'panel.json');
 const locks = new Map();
 
+/** Cache di memori: sumber kenyataan saat runtime. Menghindari baca disk tiap break. */
+const cache = new Map();
+/** userId yang berubah tapi belum tertulis ke disk. */
+const dirty = new Set();
+let writeTimer = null;
+
 function ensureAccountDir() {
   if (!fs.existsSync(ACCOUNT_DIR)) fs.mkdirSync(ACCOUNT_DIR, { recursive: true });
 }
 
+/** Sharding: account/<2 char pertama userId>/<userId>.json. Menghindari 100k file dalam satu direktori. */
 function accountPath(userId) {
-  return path.join(ACCOUNT_DIR, `${userId}.json`);
+  const prefix = String(userId).slice(0, 2);
+  const dir = path.join(ACCOUNT_DIR, prefix);
+  return path.join(dir, `${userId}.json`);
 }
+
+function round2(n) {
+  return Math.round(Number(n) * 100) / 100;
+}
+
+function scheduleSave() {
+  if (writeTimer) return;
+  writeTimer = setTimeout(flush, 5000);
+  if (writeTimer.unref) writeTimer.unref(); // jangan pegang proses nyala hanya karena timer
+}
+
+/** Tulis semua account yang kotak ke disk (batch, sinkron tapi jarang: maksimal 1x / 5 detik). */
+function flush() {
+  writeTimer = null;
+  for (const userId of dirty) {
+    const acc = cache.get(userId);
+    if (!acc) continue;
+    const p = accountPath(userId);
+    const dir = path.dirname(p);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    try {
+      fs.writeFileSync(p, JSON.stringify(acc, null, 2));
+    } catch (e) {
+      console.warn('[GROWVIA] gagal simpan account', userId, e.message);
+    }
+  }
+  dirty.clear();
+}
+
+// Simpan saat proses keluar (termasuk SIGTERM/SIGINT dari PM2) agar tidak hilang data terakhir.
+process.on('exit', flush);
+
 
 function defaultAccount(user) {
   return {
@@ -43,6 +84,7 @@ function defaultAccount(user) {
 
 function loadAccount(userId) {
   ensureAccountDir();
+  if (cache.has(userId)) return cache.get(userId);
   const p = accountPath(userId);
   if (!fs.existsSync(p)) return null;
   try {
@@ -51,6 +93,7 @@ function loadAccount(userId) {
     const eq = acc.equippedItemId ? getItem(acc.equippedItemId) : null;
     if (acc.equippedItemId && (!eq || eq.type !== 'hand')) acc.equippedItemId = 'fist';
     if ('clothes' in acc) delete acc.clothes;
+    cache.set(userId, acc);
     return acc;
   } catch {
     return null;
@@ -61,7 +104,9 @@ function saveAccount(account) {
   ensureAccountDir();
   if ('clothes' in account) delete account.clothes; // ponytail: field legacy, gbc itu type gacha bukan clothes
   account.updatedAt = new Date().toISOString();
-  fs.writeFileSync(accountPath(account.userId), JSON.stringify(account, null, 2));
+  cache.set(account.userId, account);
+  dirty.add(account.userId);
+  scheduleSave(); // tulis ke disk nanti, jangan blokir event-loop sekarang
 }
 
 async function withUserLock(userId, fn) {
@@ -132,6 +177,11 @@ async function isThreadOwner(interaction, account) {
   return true;
 }
 
+/** Paksa tulis semua account yang kotak ke disk sekarang (digunakan saat shutdown paksa). */
+function flushNow() {
+  flush();
+}
+
 module.exports = {
   ACCOUNT_DIR,
   PANEL_PATH,
@@ -141,7 +191,10 @@ module.exports = {
   saveAccount,
   withUserLock,
   formatNumber,
+  round2,
   countLocksWL,
   consumeWL,
   isThreadOwner,
+  flushNow,
 };
+
